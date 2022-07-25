@@ -1,0 +1,23 @@
+version: '3.5'
+
+volumes:
+  data-mysql:
+
+services:
+  app:
+    env_file:
+      - .env
+    image: golang:1.18.4-buster
+    working_dir: /app
+    command: go run cmd/main.go
+    volumes:
+      - ./:/app
+    environment:
+      GOPATH: /
+    networks:
+      - default
+      - backend
+
+networks:
+  backend:
+    external: true
